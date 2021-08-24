@@ -1,9 +1,9 @@
 // Класс отвечающий за связывание всей логики
 public class Game {
-	 private IGameMode mode=null; ;
+	 private GameMode mode=null; ;
 	 // Вывод правил игры
-	 public void outputRules() {
-	System.out.println(Render.draw(30,'=')+" Правила Игры "+Render.draw(30,'='));
+	 public void RulesOfTheGame() {
+	System.out.println(Render.Draw(30,'=')+" Правила Игры "+Render.Draw(30,'='));
 	System.out.println("В данной игре будет загадано два числа, одно вами, другое Компьютером\n"
 			+ "Суть игры в том, чтобы отгадать загаданное число быстрее компьютера\n"
 			+ "Цифры в числах не повторяются\n"
@@ -11,14 +11,14 @@ public class Game {
 			+"За каждую угаданую цифру в числе находящуюся не в своей позиции вам будет начислена корова\n"
 			+ "Пример: Задумано тайное число 3219. Ответ :2310\n"
 			+"Результат: две коровы (две цифры: 2 и 3  угаданы на неверных позициях) и один бык (одна цифра 1 угадана вплоть до позиции).\n");
-	System.out.println(Render.draw(30,'=')+" Начинаем настройку игры игру "+Render.draw(30,'='));
+	System.out.println(Render.Draw(30,'=')+" Начинаем настройку игры игру "+Render.Draw(30,'='));
 	 }
 	 
 	 // Метод инициализации настроек и начала игры
-	 public void beginGame() {	 
-		 SettingGame.setCountNumb();
-		 mode= SettingGame.setPlayers();
-		 mode.startingTheMode();
+	 public void BeginGame() {	 
+		 SettingGame.SetCountNumb();
+		 mode= SettingGame.SetPlayers();
+		 mode.LoopStart();
 
 	 }
 	 

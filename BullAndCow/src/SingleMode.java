@@ -1,24 +1,24 @@
 // класс для одиночной игры
-public class SingleMode implements IGameMode {
-	ICurrentPlayer player ;
+public class SingleMode implements GameMode {
+	CurrentPlayer player ;
 	public String hiddenNumb ="";
 	private String winText;
 	
-	SingleMode(ICurrentPlayer p, String s, String txt)
+	SingleMode(CurrentPlayer p, String s, String txt)
 	{	winText = txt;
 		player=p;
 		hiddenNumb = s;
 	}
-	public void startingTheMode() {
+	public void LoopStart() {
 		while(true)
 		{
-			if(run()) {return;}
+			if(Start()) {return;}
 		}
 	}
 	// метод проверки на ответ игрока
-	public boolean run() {
+	public boolean Start() {
 
-		if(player.checkTheResult(player.toAnswer(), hiddenNumb)) {
+		if(player.CheckingTheResponse(player.Answer(), hiddenNumb)) {
 			System.out.println(winText);
 			return true;
 		}

@@ -1,24 +1,23 @@
 // Класс для игры с ботом
-public class BotVsPlayer implements IGameMode {
+public class BotVsPlayer implements GameMode {
 	SingleMode player;
-	Bot bot;
+	BotPlayer bot;
 	private String hiddenNumbBot;
 	private String win="";
-	BotVsPlayer(ICurrentPlayer[] p)
+	BotVsPlayer(CurrentPlayer[] p)
 	{
-		bot = (Bot) p[1];
-		player = new SingleMode(p[0],bot.makeANumber(),Render.draw(30, '*')+" Вы угадали число "+ Render.draw(30, '*'));
-		hiddenNumbBot = p[0].makeANumber();
+		bot = (BotPlayer) p[1];
+		player = new SingleMode(p[0],bot.GuessingANumber(),Render.Draw(30, '*')+" Вы угадали число "+ Render.Draw(30, '*'));
+		hiddenNumbBot = p[0].GuessingANumber();
 		
 	}
 	
-	public void startingTheMode() {
+	public void LoopStart() {
 		while(true)
 		{
-			if(player.run())
+			if(player.Start())
 				{win+="Вы угадали число = "+player.hiddenNumb+"\n";}
-			
-			if(bot.checkTheResult(bot.toAnswer(),hiddenNumbBot))
+			if(bot.CheckingTheResponse(bot.Answer(), hiddenNumbBot))
 			{win+="Бот угадал число = "+hiddenNumbBot+"\n";}
 				
 			if(win!="")
