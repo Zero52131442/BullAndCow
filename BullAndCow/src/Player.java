@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class Player implements CurrentPlayer {
+public class Player implements ICurrentPlayer {
 	 private Scanner scanner = new Scanner(System.in);
 	 private String numbPlayer="";
 	 private String textStep="";
@@ -10,7 +10,7 @@ public class Player implements CurrentPlayer {
 	 
 	 
 	 // метод загадки числа
-	 public String GuessingANumber() {
+	 public String makeANumber() {
 		 
 		 String lengtText;
 		if(SettingGame.numbCount ==1 )
@@ -26,34 +26,34 @@ public class Player implements CurrentPlayer {
 		 System.out.printf(numbPlayer+"  Загадайте число длиной в   " + SettingGame.numbCount + " %s (Цифры в числах не должны повторяться) =  ", lengtText);
 		 String s = scanner.nextLine();
 		 System.out.print("\n");
-		 if(MyFunc.IsIntDigits(s) && !MyFunc.RepeatedСharacter(s,true) && s.length()==SettingGame.numbCount ) {
+		 if(Helper.сheckTheNumber(s) && !Helper.checkForRepetition(s,true) && s.length()==SettingGame.numbCount ) {
 		 return s;
 		 }
 		 else {
 			 System.out.println("Некорректное число");
-			 return GuessingANumber();
+			 return makeANumber();
 		 }
 		 
 	 }
 	 // метод ответа
-	 	public String Answer() {
-	 		Step();
+	 	public String toAnswer() {
+	 		makeAStep();
 	 	System.out.print("Введите ваше число = ");
 		 String s = scanner.nextLine();
-		 if(MyFunc.IsIntDigits(s) && !MyFunc.RepeatedСharacter(s,true)) {
+		 if(Helper.сheckTheNumber(s) && !Helper.checkForRepetition(s,true)) {
 			 if(s.length()==SettingGame.numbCount)
 			 {
 			 return s;
 			 }
-			 else {System.out.println("длина числа должна ровняться = "+ SettingGame.numbCount); return Answer();}
+			 else {System.out.println("длина числа должна ровняться = "+ SettingGame.numbCount); return toAnswer();}
 		 }
 		 else {
 			 System.out.println("Некорректное число");
-			return Answer();
+			return toAnswer();
 		 }
 	 }
 	 	// проверка ответа 
-	 	public boolean CheckingTheResponse(String answer, String hiddenNumber) {
+	 	public boolean checkTheResult(String answer, String hiddenNumber) {
 	 		 int bul=0;
 			 int cow=0;
 			 char pc;
@@ -78,8 +78,8 @@ public class Player implements CurrentPlayer {
 	 	}
 	 	
 	 	// метод вывода сообщения о ходе игрока
-	 	private void Step() {
-	 		System.out.println(Render.Draw(30,'=')+textStep+Render.Draw(30,'='));
+	 	private void makeAStep() {
+	 		System.out.println(Render.draw(30,'=')+textStep+Render.draw(30,'='));
 	 	}
 
 
