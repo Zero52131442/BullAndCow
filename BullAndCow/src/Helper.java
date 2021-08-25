@@ -1,14 +1,14 @@
 // Класс с функциями, которые могут потребоваться в любой момент
-public class MyFunc {
+public class Helper {
 // Отступы
-	public static String PaddingLeft(String s,int n) {
+	public static String paddingLeft(String s,int n) {
 		for(int i = 0 ; i<n;i++) {
 			s=" "+s;
 		}
 		return s;
 	}
 	
-	public static String PaddingRight(String s,int n) {
+	public static String paddingRight(String s,int n) {
 		for(int i = 0 ; i<n;i++) {
 			s+=" ";
 		}
@@ -17,7 +17,7 @@ public class MyFunc {
 	
 	
 // Удаление символов
-	public static String DeleteChar (String s, char c) {
+	public static String deleteChar (String s, char c) {
 		
 		for(int i = 0 ; i<s.length();i++) {
 			if(s.charAt(i)==c) {
@@ -28,16 +28,16 @@ public class MyFunc {
 	}
 	
 	
-	public static String DeleteChar(String s, char [] c) {
+	public static String deleteChar(String s, char [] c) {
 		for(int i=0; i<c.length;i++) {
-				s=DeleteChar(s,c[i]);
+				s=deleteChar(s,c[i]);
 			}
 		return s;
 		}
 	
 	
 	// Проверка на число
-	public static boolean  IsIntDigit(char s) {
+	public static boolean  сheckTheNumber(char s) {
 		char [] mas = new char [] {'0','1','2','3','4','5','6','7','8','9'};	
 		for(int i =0;i<mas.length;i++) {
 			if(s==mas[i]) {
@@ -47,10 +47,10 @@ public class MyFunc {
 		return false;
 	}
 	
-	public static boolean IsIntDigits(String s) {
+	public static boolean сheckTheNumber(String s) {
 
 		for(int i =0;i<s.length();i++) {
-			if(!IsIntDigit(s.charAt(i))) {
+			if(!сheckTheNumber(s.charAt(i))) {
 				System.out.println("Должно быть целое число");
 				return false;
 				}	
@@ -60,8 +60,8 @@ public class MyFunc {
 	
 	
 	// Конвертация
-	public static int[] StingInInteger(String s) {
-		if(IsIntDigits(s)) {
+	public static int[] convertToAnArrayOfNumbers(String s) {
+		if(сheckTheNumber(s)) {
 			int mas []= new  int [s.length()];
 			for(int i=0;i<s.length();i++) {
 				mas[i]=Integer.parseInt(""+s.charAt(i));
@@ -75,7 +75,7 @@ public class MyFunc {
 	}
 	
 	// Проверка строки на дублирование
-	public static boolean RepeatedСharacter(String s,boolean bool) {
+	public static boolean checkForRepetition(String s,boolean bool) {
 		for(int i = 0 ; i <s.length()-1;i++) {
 			char c = s.charAt(i);
 			for(int j =i+1;j<s.length();j++) {
@@ -92,7 +92,7 @@ public class MyFunc {
 	
 	
 	// генерация числа с не повторяющимися числами
-	public static String GeneratingANumberWithNonRepeatingNumbers() {
+	public static String generateANumberWithoutRepetitions() {
 		String s = "";
 		while(true) {
 		String c =String.valueOf((int)(Math.random() *10));

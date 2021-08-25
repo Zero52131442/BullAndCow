@@ -4,51 +4,51 @@ public class SettingGame {
 	// длина числа
 	public static int numbCount = 0;
 		// метод установки длины числа 
-	public static void SetCountNumb() {
+	public static void setCountNumb() {
 		 	Scanner scanner = new Scanner(System.in);
 		 	System.out.print("Введите длину загадываемого числа от 1 до 9 = ");
 			 String s = scanner.nextLine();
 			 System.out.print("\n");
-			 if(s!="" && MyFunc.IsIntDigits(s) && (Integer.parseInt(s)<10 && Integer.parseInt(s)>0)) {
+			 if(s!="" && Helper.сheckTheNumber(s) && (Integer.parseInt(s)<10 && Integer.parseInt(s)>0)) {
 			 SettingGame.numbCount = Integer.parseInt(s); 
 			
 			 }
 			 else {
 				 System.out.println("Некорректное число");
-				 SetCountNumb();
+				 setCountNumb();
 			 }
 
 	 }
 	// метод установки режима игры
-	public static GameMode SetPlayers() {
+	public static IGameMode setPlayers() {
 		System.out.print("Для одиночной игры нажмите '1'\n"
 				+"Для игры  в двоём нажмите '2'\n"
 				+"Для игры  с ботом нажмите '3'\n"
 				+"Ваш выбор = ");
 		    Scanner scanner = new Scanner(System.in);
 			String n = scanner.nextLine();
-			if(MyFunc.IsIntDigits(n))
+			if(Helper.сheckTheNumber(n))
 			{
 				switch (n) {
 			case  ("1"):
-				System.out.println(Render.Draw(30,'=')+" Режим одиночной игры "+Render.Draw(30,'=')+"\n"+ "Число загадано компьютером");
-			return	new SingleMode(new Player("Ваш ход",""),MyFunc.GeneratingANumberWithNonRepeatingNumbers(),Render.Draw(30, '*')+" Вы угадали число "+ Render.Draw(30, '*'));
+				System.out.println(Render.draw(30,'=')+" Режим одиночной игры "+Render.draw(30,'=')+"\n"+ "Число загадано компьютером");
+			return	new SingleMode(new Player("Ваш ход",""),Helper.generateANumberWithoutRepetitions(),Render.draw(30, '*')+" Вы угадали число "+ Render.draw(30, '*'));
 			case ("2"):
-				System.out.println(Render.Draw(30,'=')+" Режим совместной игры "+Render.Draw(30,'=')+"\n");
-			return	new DuoMode(new CurrentPlayer[]{new Player("Ход первого игрока","Игрок 1"),new Player("Ход второго игрока","Игрок 2")});
+				System.out.println(Render.draw(30,'=')+" Режим совместной игры "+Render.draw(30,'=')+"\n");
+			return	new DuoMode(new ICurrentPlayer[]{new Player("Ход первого игрока","Игрок 1"),new Player("Ход второго игрока","Игрок 2")});
 			case ("3"):
-				System.out.println(Render.Draw(30,'=')+" Режим игры против бота"+Render.Draw(30,'=')+"\n");
-			return	new BotVsPlayer(new CurrentPlayer[]{new Player("Ваш Ход",""),new BotPlayer()});
+				System.out.println(Render.draw(30,'=')+" Режим игры против бота"+Render.draw(30,'=')+"\n");
+			return	new BotVsPlayer(new ICurrentPlayer[]{new Player("Ваш Ход",""),new Bot()});
       
 			default:
 			    System.out.println("Веденно неверное значение\n");
-			    return  SetPlayers();
+			    return  setPlayers();
    }
 }
 
 else {
 			System.out.println("Веденно неверное значение\n");
-			return  SetPlayers();
+			return  setPlayers();
 }
 		}
 

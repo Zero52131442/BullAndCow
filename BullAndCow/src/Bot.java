@@ -1,6 +1,7 @@
 import java.util.*;
 // Логика бота
-public class BotPlayer implements CurrentPlayer {
+
+public class Bot implements ICurrentPlayer {
 	// Лист содержащий ключ в виде доступного числа и его позициии Пример 1 {0,1...длина числа}
 Map<Integer,ArrayList<Integer>> numbers = new HashMap<Integer, ArrayList<Integer>>();
 // Лист ответов
@@ -9,7 +10,7 @@ ArrayList<String> listAnswer = new ArrayList<>();
 
 
 // Заполняем список возможными числами и их позициями
-BotPlayer(){
+Bot(){
 
 	for(int i = 0; i<10; i++) {
 		numbers.put(i, new ArrayList<>());
@@ -22,32 +23,32 @@ BotPlayer(){
 
 }
 // Генерирование числа
-public  String GuessingANumber() {
+public  String makeANumber() {
 	System.out.println("Компьютер загадал число  ");
-	return MyFunc.GeneratingANumberWithNonRepeatingNumbers();
+	return Helper.generateANumberWithoutRepetitions();
 }
 // метод ответа комьютера
-public String Answer() {
+public String toAnswer() {
 	String answer="";
 	// делаем запрос доступных цифр на определенные позиции, а потом выбираем случайную из них
 	for(int i = 0 ; i<SettingGame.numbCount;i++)
 	{	ArrayList<Integer> availableТumbers = new ArrayList<>();
-	availableТumbers = AvailablePosition(i);
+	availableТumbers = findAnAvailablePosition(i);
 	  answer += String.valueOf( availableТumbers.get((int) (Math.random() * availableТumbers.size())));
 	}
 	// Сверяем на повторение ответа
-	if(!listAnswer.contains(answer) && !MyFunc.RepeatedСharacter(answer,false)) {
+	if(!listAnswer.contains(answer) && !Helper.checkForRepetition(answer,false)) {
 		listAnswer.add(answer);
-		System.out.println(Render.Draw(30,'*')+"Ход бота"+Render.Draw(30,'*'));
+		System.out.println(Render.draw(30,'*')+"Ход бота"+Render.draw(30,'*'));
 		System.out.println(answer);
 		return answer;
 	}
-	else return Answer();
+	else return toAnswer();
 
 
 }
 // Метод проверки ответа
-public boolean CheckingTheResponse(String answer, String hiddenNumber) {
+public boolean checkTheResult(String answer, String hiddenNumber) {
 		 int bul=0;
 		 int cow=0;
 		 char pc;
@@ -67,18 +68,18 @@ public boolean CheckingTheResponse(String answer, String hiddenNumber) {
 // манипуляции от зависимого результата
 		 if(bul==0 && cow ==0)
 		 {
-			 DeleteNumb(answer);
+			 deleteANumber(answer);
 			 
 			
 		 }
 		 
 		 if((bul+cow) == SettingGame.numbCount) {
-			 SelectedNumbers(answer);
+			 leaveTheNumbers(answer);
 		 }
 		 
 		 if(bul==0 && cow>0)
 		 {
-			 DeleteNumbPosition(answer);
+			 deleteNumberPosition(answer);
 			
 		 }
 		 
@@ -95,7 +96,7 @@ public boolean CheckingTheResponse(String answer, String hiddenNumber) {
 	
 	
 	// метод поиска доступных позиций
-private ArrayList<Integer> AvailablePosition(int position) {
+private ArrayList<Integer> findAnAvailablePosition(int position) {
 	ArrayList<Integer> availableТumbers = new ArrayList<>();
 	numbers.forEach((k,v)->{
 		for(int i = 0; i <v.size();i++)
@@ -112,15 +113,14 @@ private ArrayList<Integer> AvailablePosition(int position) {
 	
 
 // метод удаления цифр из списка доступных
-private void DeleteNumb(String answer) {
+private void deleteANumber(String answer) {
 	for(int i = 0 ; i<answer.length();i++)
-	{	
+	{		
 		numbers.remove(Integer.parseInt(""+answer.charAt(i)));
-	
 	}
 }
 // метод удаления доступной позиции цифры
-private void DeleteNumbPosition(String answer) {
+private void deleteNumberPosition(String answer) {
 	char key=' ';
 	for(int i = 0 ; i<answer.length();i++)
 	{		
@@ -136,11 +136,11 @@ private void DeleteNumbPosition(String answer) {
 	}
 }
 // метод исключающий определенные числа и удаления всех остальных
-private void SelectedNumbers(String answer) {
+private void leaveTheNumbers(String answer) {
 	
 	String range = "0123456789";
-	range = MyFunc.DeleteChar(range, answer.toCharArray());
-	DeleteNumb(range);
+	range = Helper.deleteChar(range, answer.toCharArray());
+	deleteANumber(range);
 }
 
 }
